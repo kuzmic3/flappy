@@ -974,7 +974,7 @@ color: #ffa615;
         let errorMessage = ''
         const createAccountResponse = document.getElementById('create-account-response')
 
-        let accept = document.getElementById('accept')
+        let accept = document.getElementById('PARAM_termsagreement')
 
         if (accept.value !== 'on') {
           createAccountResponse.innerText = 'You must accept Affiliate terms and conditions';
@@ -1006,51 +1006,53 @@ color: #ffa615;
         const formMethod = $form.attr('method');
         const formAction = $form.attr('action');
         let formData = $form.serializeArray();
-        let xmlData = '';
-        for (let formi = 0; formi < formData.length; formi++) {
-          if (formData[formi].name === 'PARAM_password_confirmation') {
+
+        let xmlData = '<?xml version="1.0" encoding="UTF-8"?>';
+
+        for (let i = 0; i < formData.length; i++) {
+          if (formData[i].name === 'PARAM_password_confirmation') {
             continue;
           }
-          if (formData[formi].name === 'PARAM_termsagreement') {
-            xmlData = xmlData + '<' + formData[formi].name + '>1</' + formData[formi].name + '>'
+          if (formData[i].name === 'PARAM_termsagreement') {
+            xmlData += '<' + formData[i].name + '>1</' + formData[i].name + '>';
           } else {
-            xmlData = xmlData + '<' + formData[formi].name + '>' + formData[formi].value + '</' + formData[formi].name + '>'
+            xmlData += '<' + formData[i].name + '>' + formData[i].value + '</' + formData[i].name + '>';
           }
         }
-        console.log(xmlData)
 
         if (buttonWaitingText) {
           $submit.val(buttonWaitingText);
         }
 
-        $.ajax(formAction, {
+        $.ajax({
           data: xmlData,
           method: formMethod,
-          contentType: "application/xml",
+          url: 'http://localhost:8888/flappy/create-account.php',
+          // url: 'http://phpstack-842853-3611069.cloudwaysapps.com/create-account.php',
         })
-                .done((res) => {
-                  createAccountResponse.innerText = 'Success';
+          .done(res => {
+            createAccountResponse.innerText = 'Success';
 
-                  let createAccountform = document.getElementById('create-account-form');
-                  let createAccountInputs = createAccountform.querySelectorAll("input");
-                  let i;
-                  for (i = 0; i < createAccountInputs.length; i++) {
-                    createAccountInputs[i].value = "";
-                  }
+            let createAccountform = document.getElementById('create-account-form');
+            let createAccountInputs = createAccountform.querySelectorAll("input");
+            let i;
+            for (i = 0; i < createAccountInputs.length; i++) {
+              createAccountInputs[i].value = "";
+            }
 
-                  let createAccountPlaceholders = createAccountform.querySelectorAll(".placeholder");
-                  var k;
-                  for (k = 0; k < createAccountPlaceholders.length; k++) {
-                    createAccountPlaceholders[k].style.opacity = "100";
-                  }
-                })
-                .fail((res) => {
-                  createAccountResponse.innerText = 'Error';
+            let createAccountPlaceholders = createAccountform.querySelectorAll(".placeholder");
+            var k;
+            for (k = 0; k < createAccountPlaceholders.length; k++) {
+              createAccountPlaceholders[k].style.opacity = "100";
+            }
+          })
+          .fail((res) => {
+            createAccountResponse.innerText = 'Error';
 
-                })
-                .always(() => {
-                  $submit.val(buttonText);
-                });
+          })
+          .always(() => {
+            $submit.val(buttonText);
+          });
       });
 
 
@@ -1209,7 +1211,7 @@ color: #ffa615;
       $('body').removeClass('modal-active');
     });
 
-
+    
   </script>
 </body>
 </html>
