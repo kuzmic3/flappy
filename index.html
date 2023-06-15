@@ -976,7 +976,7 @@ color: #ffa615;
 
         let accept = document.getElementById('PARAM_termsagreement')
 
-        if (accept.value !== 'on') {
+        if (!accept.checked) {
           createAccountResponse.innerText = 'You must accept Affiliate terms and conditions';
           return
         }
@@ -1027,8 +1027,8 @@ color: #ffa615;
         $.ajax({
           data: xmlData,
           method: formMethod,
-          url: 'http://localhost:8888/flappy/create-account.php',
-          // url: 'http://phpstack-842853-3611069.cloudwaysapps.com/create-account.php',
+          // url: 'http://localhost:8888/flappy/create-account.php',
+          url: 'http://phpstack-842853-3611069.cloudwaysapps.com/create-account.php',
         })
           .done(res => {
             createAccountResponse.innerText = 'Success';
