@@ -11,6 +11,7 @@ curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $_POST);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: text/xml']);
+curl_setopt($curl, CURLOPT_USERPWD, "api_flappy:^6gGygf65I");
 
 $response = curl_exec($curl);
 
