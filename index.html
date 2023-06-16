@@ -1007,25 +1007,12 @@ color: #ffa615;
         const formAction = $form.attr('action');
         let formData = $form.serializeArray();
 
-        let xmlData = '<?xml version="1.0" encoding="UTF-8"?>';
-
-        for (let i = 0; i < formData.length; i++) {
-          if (formData[i].name === 'PARAM_password_confirmation') {
-            continue;
-          }
-          if (formData[i].name === 'PARAM_termsagreement') {
-            xmlData += '<' + formData[i].name + '>1</' + formData[i].name + '>';
-          } else {
-            xmlData += '<' + formData[i].name + '>' + formData[i].value + '</' + formData[i].name + '>';
-          }
-        }
-
         if (buttonWaitingText) {
           $submit.val(buttonWaitingText);
         }
 
         $.ajax({
-          data: xmlData,
+          data: formData,
           method: formMethod,
           // url: 'http://localhost:8888/flappy/create-account.php',
           url: 'https://phpstack-842853-3611069.cloudwaysapps.com/create-account.php',
