@@ -13,9 +13,21 @@ curl_setopt($curl, CURLOPT_USERPWD, "api_flappy:^6gGygf65I");
 $response = curl_exec($curl);
 
 if (!$response) {
-    echo 'Error : ' . curl_error($curl);
+    echo 'Error. Please contact your affiliate manager!';
 } else {
-    echo $response;
+    $xml = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOCDATA);
+    $json = json_encode($xml);
+    $array = json_decode($json,TRUE);
+
+    if ($array['INIT']['@attributes']['ERROR_COUNT'] == 0) {
+        echo 'ok';
+    } else {
+        if (isset($array['INIT']['ERROR'][0]['MSG'])) {
+            echo $array['INIT']['ERROR'][0]['MSG'];
+        } else {
+            echo $array['INIT']['ERROR']['MSG'];
+        }
+    }
 }
 
 curl_close($curl);

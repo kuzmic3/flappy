@@ -1779,27 +1779,36 @@ color: #ffa615;
         $.ajax({
           data: keyValuePairs,
           method: formMethod,
-          // url: 'http://localhost:8888/flappy/create-account.php',
-          url: 'https://phpstack-842853-3611069.cloudwaysapps.com/create-account.php',
+          url: 'create-account.php',
+          // url: 'https://phpstack-842853-3611069.cloudwaysapps.com/create-account.php',
         })
           .done(res => {
-            createAccountResponse.innerText = 'Success';
+            if (res === 'ok') {
+              createAccountResponse.innerText = 'Success';
 
-            let createAccountform = document.getElementById('create-account-form');
-            let createAccountInputs = createAccountform.querySelectorAll("input");
-            let i;
-            for (i = 0; i < createAccountInputs.length; i++) {
-              createAccountInputs[i].value = "";
-            }
+              let createAccountform = document.getElementById('create-account-form');
+              let createAccountInputs = createAccountform.querySelectorAll("input");
+              let i;
+              for (i = 0; i < createAccountInputs.length; i++) {
+                createAccountInputs[i].value = "";
+              }
+              let createAccountSelects = createAccountform.querySelectorAll("select");
+              let s;
+              for (s = 0; s < createAccountSelects.length; s++) {
+                createAccountSelects[s].value = "";
+              }
 
-            let createAccountPlaceholders = createAccountform.querySelectorAll(".placeholder");
-            var k;
-            for (k = 0; k < createAccountPlaceholders.length; k++) {
-              createAccountPlaceholders[k].style.opacity = "100";
+              let createAccountPlaceholders = createAccountform.querySelectorAll(".placeholder");
+              var k;
+              for (k = 0; k < createAccountPlaceholders.length; k++) {
+                createAccountPlaceholders[k].style.opacity = "100";
+              }
+            } else {
+              createAccountResponse.innerText = res;
             }
           })
           .fail((res) => {
-            createAccountResponse.innerText = 'Error';
+            createAccountResponse.innerText = 'Error. Please contact your affiliate manager!';
 
           })
           .always(() => {
