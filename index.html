@@ -1784,7 +1784,7 @@ color: #ffa615;
         })
           .done(res => {
             if (res === 'ok') {
-              createAccountResponse.innerText = 'Success';
+              createAccountResponse.innerText = 'Your account has been created. A confirmation e-mail has been sent to you which may contain important information before you can login.';
 
               let createAccountform = document.getElementById('create-account-form');
               let createAccountInputs = createAccountform.querySelectorAll("input");

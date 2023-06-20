@@ -1388,7 +1388,10 @@
 .div-block-19 {
   color: #ffa615;
   font-size: 15px;
-  line-height: 50px;
+  line-height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .text-block-20 {
